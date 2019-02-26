@@ -16,7 +16,7 @@ public class SwaggerConfig {
     public Docket productApi() {
         return new Docket(DocumentationType.SWAGGER_2)
                 .select()                 .apis(basePackage("com.abcbank.controllers"))
-                .paths(regex(".*g"))
+                .paths(regex(".*"))
                 .build();
     }
 }
