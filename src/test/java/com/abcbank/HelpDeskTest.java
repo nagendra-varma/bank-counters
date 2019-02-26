@@ -2,6 +2,7 @@ package com.abcbank;
 
 import com.abcbank.customer.Customer;
 import com.abcbank.customer.CustomerRepository;
+import com.abcbank.helpdesk.HelpDesk;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;

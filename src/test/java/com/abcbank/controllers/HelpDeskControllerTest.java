@@ -3,7 +3,6 @@ package com.abcbank.controllers;
 import com.abcbank.BankCountersApplication;
 import com.abcbank.customer.Customer;
 import com.abcbank.customer.CustomerRepository;
-import com.abcbank.token.Token;
 import com.abcbank.token.TokenRepository;
 import org.junit.Before;
 import org.junit.Test;
@@ -20,7 +19,6 @@ import static com.abcbank.service.ServiceType.NON_PREMIUM;
 import static com.abcbank.service.ServiceType.PREMIUM;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 

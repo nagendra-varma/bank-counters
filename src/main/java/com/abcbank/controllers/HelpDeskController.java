@@ -1,6 +1,6 @@
 package com.abcbank.controllers;
 
-import com.abcbank.HelpDesk;
+import com.abcbank.helpdesk.HelpDesk;
 import com.abcbank.service.ServiceRequest;
 import com.abcbank.customer.Customer;
 import com.abcbank.customer.CustomerRepository;
