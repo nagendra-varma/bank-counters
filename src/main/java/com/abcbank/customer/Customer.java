@@ -1,6 +1,9 @@
 package com.abcbank.customer;
 
 import com.abcbank.service.ServiceType;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -24,4 +27,19 @@ public class Customer {
 
     @Enumerated(value = STRING)
     private ServiceType serviceType;
+
+    @JsonIgnore
+    public String toJson() throws JsonProcessingException {
+        ObjectMapper mapper = new ObjectMapper();
+        return mapper.writeValueAsString(this);
+    }
+
+    public String toString() {
+        try {
+            return toJson();
+        } catch (JsonProcessingException e) {
+            e.printStackTrace();
+        }
+        return super.toString();
+    }
 }
