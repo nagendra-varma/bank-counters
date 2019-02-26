@@ -19,9 +19,6 @@ public class AddressChangeRequestExecutor implements ServiceExecutor {
     @Override
     public void execute(Token token, Employee employee) {
         log.info("Address change request completed for token : " + token.getId());
-        token.markLastRequestProcessing();
-        if (token.getNextServiceRequest().isPresent()) {
-            counterManager.serveToken(token);
-        }
+        token.onRecentRequestCompleted("Address successfully changed");
     }
 }

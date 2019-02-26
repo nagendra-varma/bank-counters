@@ -34,7 +34,7 @@ public class CounterTokensQueue {
         return counterTokensMap.getOrDefault(counter, new LinkedList<>());
     }
 
-    public Token getNextTokenToServeAssignedForCounter(Counter counter) {
+    public Token getNextToken(Counter counter) {
         return counterTokensMap.getOrDefault(counter, new LinkedList<>()).peek();
     }
 
@@ -47,6 +47,6 @@ public class CounterTokensQueue {
             throw new Exception("Cannot mark token status to COMPLETED without serving all customer requests");
         }
 
-        token.markLastRequestWithStatus(tokenStatus);
+        token.setTokenStatus(tokenStatus);
     }
 }

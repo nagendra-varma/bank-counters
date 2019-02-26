@@ -26,6 +26,7 @@ public class ServiceRequestDelegator {
     private CounterManager counterManager;
 
     public void execute(Token token, Employee employee, Counter counter) {
+        token.markLastRequestProcessing();
         token.getServiceRequestList().forEach(srd -> {
             Optional<ServiceRequest> serviceRequest = token.getNextServiceRequest();
             if (serviceRequest.isPresent()) {

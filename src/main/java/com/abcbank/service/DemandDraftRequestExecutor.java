@@ -13,5 +13,6 @@ public class DemandDraftRequestExecutor implements ServiceExecutor {
     @Override
     public void execute(Token token, Employee employee) {
         log.info("DD service completed for token : " + token.getId());
+        token.onRecentRequestCompleted("Demand Draft is generated.!");
     }
 }

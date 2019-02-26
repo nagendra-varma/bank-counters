@@ -53,16 +53,15 @@ public class Token {
     }
 
     @JsonIgnore
-    public void markLastRequestWithStatus(TokenStatus tokenStatus) {
-        ServiceRequestDetails serviceRequestDetails = serviceRequestList.pop();
+    public void onRecentRequestCompleted(String comment) {
+        ServiceRequestDetails serviceRequestDetails = serviceRequestList.poll();
         serviceRequestDetails.setEndTime(new Date());
 
         CounterFeedback counterFeedback = new CounterFeedback();
-        counterFeedback.setComments(serviceRequestDetails.getComment());
+        counterFeedback.setComments(comment);
         counterFeedback.setCounterNo(assignedCounter.getNo());
         counterFeedback.setStartTime(serviceRequestDetails.getStartTime());
         counterFeedback.setEndTime(serviceRequestDetails.getEndTime());
-        this.tokenStatus = tokenStatus;
         counterFeedbackList.push(counterFeedback);
     }
 
