@@ -26,7 +26,7 @@ public class DefaultCounterAssigner implements CounterAssigner {
             Optional<Counter> availableCounter = serviceCounterRepository.getCounterForService(serviceRequest, token.getServiceType());
             availableCounter.ifPresent(counter -> {
                 token.setAssignedCounter(counter);
-                counterTokensQueue.addToCounterQueue(counter, token);
+                counterTokensQueue.addTokenToCounterQueue(counter, token);
             });
         });
     }

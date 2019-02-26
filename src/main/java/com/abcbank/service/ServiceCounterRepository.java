@@ -2,6 +2,7 @@ package com.abcbank.service;
 
 import com.abcbank.counter.Counter;
 import com.abcbank.counter.CounterRepository;
+import com.abcbank.counter.CounterTokensQueue;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -15,7 +16,18 @@ public class ServiceCounterRepository {
 
     private Map<ServiceRequest, List<Counter>> counterHashMap = new HashMap<>();
 
+    @Autowired
     private CounterRepository counterRepository;
+
+    @Autowired
+    private CounterTokensQueue counterTokensQueue;
+
+    private Comparator<Counter> counterComparator = new Comparator<Counter>() {
+        @Override
+        public int compare(Counter o1, Counter o2) {
+            return counterTokensQueue.getTokenSizeForCounter(o1) - counterTokensQueue.getTokenSizeForCounter(o2);
+        }
+    };
 
     @Autowired
     public ServiceCounterRepository(CounterRepository counterRepository) {
@@ -32,8 +44,7 @@ public class ServiceCounterRepository {
     public Optional<Counter> getCounterForService(ServiceRequest serviceRequest, ServiceType serviceType) {
         return counterHashMap.getOrDefault(serviceRequest, Collections.emptyList())
                 .stream()
-                .filter(c -> c.getServiceType() == serviceType)
-                .findFirst();
+                .filter(c -> c.getServiceType() == serviceType).min(counterComparator);
     }
 
     public boolean canServeRequestByCounter(Counter counter, ServiceRequest serviceRequest) {

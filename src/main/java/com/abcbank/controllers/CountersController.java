@@ -5,14 +5,12 @@ import com.abcbank.counter.Counter;
 import com.abcbank.counter.CounterRepository;
 import com.abcbank.counter.CounterTokensQueue;
 import com.abcbank.service.ServiceCounterRepository;
-import com.abcbank.staff.Employee;
-import com.abcbank.staff.EmployeeCounterRepository;
-import com.abcbank.token.Token;
-import com.abcbank.token.TokenRoleAuth;
-import com.abcbank.token.TokenStatus;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 import java.util.Queue;
@@ -30,9 +28,6 @@ public class CountersController {
 
     @Autowired
     private CounterRepository counterRepository;
-
-    @Autowired
-    private EmployeeCounterRepository employeeCounterRepository;
 
     @GetMapping("/{counterNo}")
     public Counter getCounter(@PathVariable(name = "counterNo") int counterNo) throws Exception {

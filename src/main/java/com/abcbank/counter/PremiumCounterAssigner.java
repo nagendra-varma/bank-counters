@@ -29,13 +29,13 @@ public class PremiumCounterAssigner implements CounterAssigner {
             Optional<Counter> availableCounter = serviceCounterRepository.getCounterForService(serviceRequest, token.getServiceType());
             availableCounter.ifPresent(counter -> {
                 token.setAssignedCounter(counter);
-                counterTokensQueue.addToCounterQueue(counter, token);
+                counterTokensQueue.addTokenToCounterQueue(counter, token);
             });
             if (!availableCounter.isPresent() && token.getServiceType() == ServiceType.PREMIUM) {
                 Optional<Counter> nonPremiumCounter = serviceCounterRepository.getCounterForService(serviceRequest, NON_PREMIUM);
                 nonPremiumCounter.ifPresent(npc -> {
                     token.setAssignedCounter(npc);
-                    counterTokensQueue.addToCounterQueue(npc, token);
+                    counterTokensQueue.addTokenToCounterQueue(npc, token);
                 });
             }
         });

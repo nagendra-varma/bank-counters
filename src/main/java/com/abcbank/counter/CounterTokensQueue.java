@@ -23,9 +23,10 @@ public class CounterTokensQueue {
     @Autowired
     private TokenRepository tokenRepository;
 
-    void addToCounterQueue(Counter counter, Token token) {
+    public void addTokenToCounterQueue(Counter counter, Token token) {
         Queue<Token> counterQueue = counterTokensMap.getOrDefault(counter, new LinkedList<>());
         counterQueue.add(token);
+        token.setAssignedCounter(counter);
         counterTokensMap.put(counter, counterQueue);
     }
 
@@ -35,6 +36,10 @@ public class CounterTokensQueue {
 
     public Token getNextTokenToServeAssignedForCounter(Counter counter) {
         return counterTokensMap.getOrDefault(counter, new LinkedList<>()).peek();
+    }
+
+    public int getTokenSizeForCounter(Counter counter) {
+        return counterTokensMap.getOrDefault(counter, new LinkedList<>()).size();
     }
 
     public void setTokenStatus(Token token, TokenStatus tokenStatus) throws Exception {
