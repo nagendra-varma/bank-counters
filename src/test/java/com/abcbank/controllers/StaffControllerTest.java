@@ -1,6 +1,5 @@
 package com.abcbank.controllers;
 
-import com.abcbank.BankCountersApplication;
 import com.abcbank.counter.Counter;
 import com.abcbank.counter.CounterRepository;
 import com.abcbank.staff.Employee;
@@ -14,12 +13,10 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.HttpStatus;
 import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.context.junit4.SpringRunner;
-import org.springframework.test.context.web.WebAppConfiguration;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
 
-import static org.springframework.test.annotation.DirtiesContext.ClassMode.AFTER_EACH_TEST_METHOD;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -47,7 +44,7 @@ public class StaffControllerTest {
     public void shouldAssignAnEmployeeToCounter() throws Exception {
         Employee employee = new Employee();
         employee.setName("Nagendra");
-        employee.setRole(Role.MANAGERS);
+        employee.setRole(Role.MANAGER);
         employee.setId(1);
         employeeRepository.save(employee);
 
@@ -65,7 +62,7 @@ public class StaffControllerTest {
     public void shouldDeAssignEmployeeFromCounter() throws Exception {
         Employee employee = new Employee();
         employee.setName("Nagendra");
-        employee.setRole(Role.MANAGERS);
+        employee.setRole(Role.MANAGER);
         employee.setId(1);
         employeeRepository.save(employee);
 

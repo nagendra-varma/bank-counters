@@ -126,7 +126,7 @@ public class CountersControllerTest {
     public void shouldEmployeeBeAbleToServeNextTokenWaitingInQueue() throws Exception {
         Employee employee = new Employee();
         employee.setId(1);
-        employee.setRole(Role.MANAGERS);
+        employee.setRole(Role.MANAGER);
         employee.setName("Nagendra");
         employeeRepository.save(employee);
         Counter counter = counterRepository.getCounterByNo(1);
@@ -150,7 +150,7 @@ public class CountersControllerTest {
     public void shouldOperatorsAndManagersOnlyBeAbleToCloseToken() throws Exception {
         Employee employee = new Employee();
         employee.setId(1);
-        employee.setRole(Role.MANAGERS);
+        employee.setRole(Role.MANAGER);
         employee.setName("Nagendra");
         employeeRepository.save(employee);
         Counter counter = counterRepository.getCounterByNo(1);

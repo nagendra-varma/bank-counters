@@ -1,6 +1,7 @@
 package com.abcbank.staff;
 
 import lombok.Getter;
+import lombok.NonNull;
 import lombok.Setter;
 
 import javax.persistence.*;
@@ -17,8 +18,10 @@ public class Employee {
     @GeneratedValue
     private Integer id;
 
+    @NonNull
     private String name;
 
     @Enumerated(value = STRING)
+    @NonNull
     private Role role;
 }

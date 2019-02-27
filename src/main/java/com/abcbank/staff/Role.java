@@ -1,7 +1,7 @@
 package com.abcbank.staff;
 
 public enum Role {
-    OPERATORS,
-    MANAGERS,
+    OPERATOR,
+    MANAGER,
     GENERAL
 }

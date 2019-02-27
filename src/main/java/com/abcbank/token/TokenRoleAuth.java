@@ -6,14 +6,14 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 
-import static com.abcbank.staff.Role.MANAGERS;
-import static com.abcbank.staff.Role.OPERATORS;
+import static com.abcbank.staff.Role.MANAGER;
+import static com.abcbank.staff.Role.OPERATOR;
 import static java.util.Arrays.asList;
 
 @Service
 public class TokenRoleAuth {
 
-    private static final List<Role> authorizedRoles = asList(OPERATORS, MANAGERS);
+    private static final List<Role> authorizedRoles = asList(OPERATOR, MANAGER);
 
     public boolean isAuthorized(Employee employee, TokenStatus tokenStatus) {
         Role role = employee.getRole();
