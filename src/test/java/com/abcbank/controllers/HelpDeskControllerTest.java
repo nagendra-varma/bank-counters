@@ -1,6 +1,8 @@
 package com.abcbank.controllers;
 
-import com.abcbank.BankCountersApplication;
+import com.abcbank.counter.Counter;
+import com.abcbank.counter.CounterRepository;
+import com.abcbank.counter.CounterTokensQueue;
 import com.abcbank.customer.Customer;
 import com.abcbank.customer.CustomerRepository;
 import com.abcbank.token.TokenRepository;
@@ -9,8 +11,9 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.annotation.DirtiesContext;
+import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit4.SpringRunner;
-import org.springframework.test.context.web.WebAppConfiguration;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
@@ -23,8 +26,8 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 
 @RunWith(SpringRunner.class)
-@SpringBootTest(classes = BankCountersApplication.class)
-@WebAppConfiguration
+@SpringBootTest(properties = {"spring.config.name=myapp-test-h2","myapp.trx.datasource.url=jdbc:h2:mem:testdb"})
+@DirtiesContext(classMode = DirtiesContext.ClassMode.BEFORE_EACH_TEST_METHOD)
 public class HelpDeskControllerTest {
 
     private MockMvc mockMvc;
@@ -37,6 +40,12 @@ public class HelpDeskControllerTest {
 
     @Autowired
     private TokenRepository tokenRepository;
+
+    @Autowired
+    private CounterTokensQueue counterTokensQueue;
+
+    @Autowired
+    private CounterRepository counterRepository;
 
     @Before
     public void setup() {
@@ -66,7 +75,8 @@ public class HelpDeskControllerTest {
         customerRepository.save(customer);
         mockMvc.perform(post("/helpDesk/1/ACC_BAL_CHECK"))
                 .andExpect(status().isOk());
-        assertThat(tokenRepository.getAllTokens()).hasSize(1);
+        Counter counter = counterRepository.getCounterByNo(1);
+        assertThat(counterTokensQueue.getTokensAssignedForCounter(counter)).hasSize(1);
     }
 
     @Test
@@ -79,6 +89,7 @@ public class HelpDeskControllerTest {
         customerRepository.save(customer);
         mockMvc.perform(post("/helpDesk/1/ACC_BAL_CHECK"))
                 .andExpect(status().isOk());
-        assertThat(tokenRepository.getAllTokens()).hasSize(1);
+        Counter counter = counterRepository.getCounterByNo(2);
+        assertThat(counterTokensQueue.getTokensAssignedForCounter(counter)).hasSize(1);
     }
 }
